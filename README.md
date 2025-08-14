@@ -8,10 +8,10 @@ http://127.0.0.1:5000/#/experiments/739385235113298290/runs/30e914f54bfc419a9455
 http://127.0.0.1:5000/#/experiments/739385235113298290/runs/30e914f54bfc419a945569ccbcf3348f/model-metrics
 
 ## mlflow classification-report.txt
-file:///C:\Users\User\Desktop\Telecom_Customer_Churn_Prediction\mlruns/739385235113298290/30e914f54bfc419a945569ccbcf3348f/artifacts/classification_report.txt
+http://127.0.0.1:5000/#/experiments/739385235113298290/runs/30e914f54bfc419a945569ccbcf3348f/artifacts
 
-## confusion - matrix
-file:///C:\Users\User\Desktop\Telecom_Customer_Churn_Prediction\mlruns/739385235113298290/30e914f54bfc419a945569ccbcf3348f/artifacts/confusion_matrix.png
+## mlflow confusion - matrix
+http://127.0.0.1:5000/#/experiments/739385235113298290/runs/30e914f54bfc419a945569ccbcf3348f/artifacts
 
-## ROC Curve
-file:///C:\Users\User\Desktop\Telecom_Customer_Churn_Prediction\mlruns/739385235113298290/30e914f54bfc419a945569ccbcf3348f/artifacts/roc_curve.png
+## mlflow ROC Curve
+http://127.0.0.1:5000/#/experiments/739385235113298290/runs/30e914f54bfc419a945569ccbcf3348f/artifacts
