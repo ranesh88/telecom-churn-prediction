@@ -1,0 +1,10 @@
+artifact_location: file:///C:\Users\User\Desktop\Telecom_Customer_Churn_Prediction\mlruns/739385235113298290/models/m-4167e7e880a4462da87b8903ea04e046/artifacts
+creation_timestamp: 1755178480317
+experiment_id: '739385235113298290'
+last_updated_timestamp: 1755178487806
+model_id: m-4167e7e880a4462da87b8903ea04e046
+model_type: null
+name: random_forest_model
+source_run_id: 30e914f54bfc419a945569ccbcf3348f
+status: 2
+status_message: null

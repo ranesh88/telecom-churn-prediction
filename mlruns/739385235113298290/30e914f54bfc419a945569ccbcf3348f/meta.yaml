@@ -1,0 +1,14 @@
+artifact_uri: file:///C:\Users\User\Desktop\Telecom_Customer_Churn_Prediction\mlruns/739385235113298290/30e914f54bfc419a945569ccbcf3348f/artifacts
+end_time: 1755178487842
+entry_point_name: ''
+experiment_id: '739385235113298290'
+lifecycle_stage: active
+run_id: 30e914f54bfc419a945569ccbcf3348f
+run_name: dapper-elk-839
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1755178478734
+status: 3
+tags: []
+user_id: User

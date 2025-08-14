@@ -1,0 +1,22 @@
+artifact_path: file:///C:\Users\User\Desktop\Telecom_Customer_Churn_Prediction\mlruns/739385235113298290/models/m-4167e7e880a4462da87b8903ea04e046/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.8
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.5.1
+mlflow_version: 3.2.0
+model_id: m-4167e7e880a4462da87b8903ea04e046
+model_size_bytes: 21850452
+model_uuid: m-4167e7e880a4462da87b8903ea04e046
+prompts: null
+run_id: 30e914f54bfc419a945569ccbcf3348f
+utc_time_created: '2025-08-14 13:34:40.396671'
