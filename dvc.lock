@@ -5,13 +5,13 @@ stages:
     deps:
     - path: data/processed/
       hash: md5
-      md5: d751713988987e9331980363e24189ce.dir
-      size: 0
-      nfiles: 0
+      md5: 7507ea47ead2672822a39eb0925aa139.dir
+      size: 1135283
+      nfiles: 1
     - path: src/train_model.py
       hash: md5
-      md5: 5508de8af76ac47d61ca1f133be4e467
-      size: 1536
+      md5: ab2e36313e473547f5c764ee009e7ff1
+      size: 1551
     outs:
     - path: models/preprocessor.pkl
       hash: md5
