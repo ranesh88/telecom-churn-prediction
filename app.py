@@ -1,39 +1,45 @@
-from flask import Flask,render_template,request,redirect
-# from flask_cors import CORS,cross_origin
+from flask import Flask, render_template, request, redirect
 from sklearn.preprocessing import StandardScaler
-import sklearn
 import pickle
 import pandas as pd
 import numpy as np
-
 import warnings
+
 warnings.filterwarnings('ignore')
 
-app=Flask(__name__)
-# cors=CORS(app)
-model=pickle.load(open('rf_classifier.pkl','rb'))
-preprocessor = pickle.load(open('preprocessor.pkl','rb'))
-Telco=pd.read_csv('Churn_Prediction_Final.csv')
+app = Flask(__name__)
+
+# Load model and preprocessor from DVC-tracked folder
+model = pickle.load(open('models/rf_classifier.pkl', 'rb'))
+preprocessor = pickle.load(open('models/preprocessor.pkl', 'rb'))
+
+# Load dataset (optional, for dropdowns in UI)
+Telco = pd.read_csv('Churn_Prediction_Final.csv')
 
 
-def predict(gender,SeniorCitizen,Partner,Dependents,tenure,PhoneService,MultipleLines,InternetService,OnlineSecurity,OnlineBackup,DeviceProtection,TechSupport,StreamingTV,StreamingMovies,Contract,PaperlessBilling,PaymentMethod,MonthlyCharges,TotalCharges):
-    # Prepare features array
-    features = np.array([[gender,SeniorCitizen,Partner,Dependents,tenure,PhoneService,MultipleLines,InternetService,OnlineSecurity,OnlineBackup,DeviceProtection,TechSupport,StreamingTV,StreamingMovies,Contract,PaperlessBilling,PaymentMethod,MonthlyCharges,TotalCharges]],dtype = 'object')
-
-    # transformed featured
+def predict(gender, SeniorCitizen, Partner, Dependents, tenure, PhoneService, MultipleLines,
+            InternetService, OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport,
+            StreamingTV, StreamingMovies, Contract, PaperlessBilling, PaymentMethod,
+            MonthlyCharges, TotalCharges):
+    
+    features = np.array([[gender, SeniorCitizen, Partner, Dependents, tenure, PhoneService, MultipleLines,
+                          InternetService, OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport,
+                          StreamingTV, StreamingMovies, Contract, PaperlessBilling, PaymentMethod,
+                          MonthlyCharges, TotalCharges]], dtype='object')
+    
     transformed_features = preprocessor.transform(features)
-
-    # predict by model
     result = model.predict(transformed_features).reshape(1, -1)
-
+    
     return result[0]
 
-@app.route('/',methods=['GET','POST'])
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    gender=sorted(Telco['gender'].unique())
+    # Prepare dropdown lists
+    gender = sorted(Telco['gender'].unique())
     SeniorCitizen = sorted(Telco['SeniorCitizen'].unique())
-    Partner=sorted(Telco['Partner'].unique())
-    Dependents =sorted(Telco['Dependents'].unique())
+    Partner = sorted(Telco['Partner'].unique())
+    Dependents = sorted(Telco['Dependents'].unique())
     PhoneService = sorted(Telco['PhoneService'].unique())
     MultipleLines = sorted(Telco['MultipleLines'].unique())
     InternetService = sorted(Telco['InternetService'].unique())
@@ -47,34 +53,36 @@ def index():
     PaperlessBilling = sorted(Telco['PaperlessBilling'].unique())
     PaymentMethod = sorted(Telco['PaymentMethod'].unique())
 
-
-
-    gender.insert(0,'Confirm your Gender!')
-    SeniorCitizen.insert(0, 'Are you SeniorCitizen! ')
-    Partner.insert(0, 'Do you have Partner')
+    # Insert default prompts
+    gender.insert(0, 'Confirm your Gender!')
+    SeniorCitizen.insert(0, 'Are you SeniorCitizen!')
+    Partner.insert(0, 'Do you have Partner?')
     Dependents.insert(0, 'Do you have Dependents?')
-    PhoneService.insert(0, 'Do you have PhoneService!')
+    PhoneService.insert(0, 'Do you have PhoneService?')
     MultipleLines.insert(0, 'Do you have MultipleLines?')
     InternetService.insert(0, 'Do you have InternetService?')
-    OnlineSecurity.insert(0, 'Do you have OnlineSecurity')
+    OnlineSecurity.insert(0, 'Do you have OnlineSecurity?')
     OnlineBackup.insert(0, 'Do you have OnlineBackup?')
     DeviceProtection.insert(0, 'Do you have DeviceProtection?')
     TechSupport.insert(0, 'Do you have TechSupport?')
     StreamingTV.insert(0, 'Do you have StreamingTV?')
     StreamingMovies.insert(0, 'Do you have StreamingMovies?')
-    Contract.insert(0, 'Select your Contract Mode !')
+    Contract.insert(0, 'Select your Contract Mode!')
     PaperlessBilling.insert(0, 'Do you have PaperlessBilling?')
     PaymentMethod.insert(0, 'Select your PaymentMethod?')
 
+    return render_template('index.html', gender=gender, SeniorCitizen=SeniorCitizen, Partner=Partner,
+                           Dependents=Dependents, PhoneService=PhoneService, MultipleLines=MultipleLines,
+                           InternetService=InternetService, OnlineSecurity=OnlineSecurity, OnlineBackup=OnlineBackup,
+                           DeviceProtection=DeviceProtection, TechSupport=TechSupport, StreamingTV=StreamingTV,
+                           StreamingMovies=StreamingMovies, Contract=Contract, PaperlessBilling=PaperlessBilling,
+                           PaymentMethod=PaymentMethod)
 
-    return render_template('index.html',gender=gender,SeniorCitizen=SeniorCitizen,Partner=Partner,Dependents=Dependents,PhoneService=PhoneService,MultipleLines=MultipleLines,InternetService=InternetService,OnlineSecurity=OnlineSecurity,OnlineBackup=OnlineBackup,DeviceProtection=DeviceProtection,TechSupport=TechSupport,StreamingTV=StreamingTV,StreamingMovies=StreamingMovies,Contract=Contract,PaperlessBilling=PaperlessBilling,PaymentMethod=PaymentMethod)
 
-@app.route('/predict_route',methods=['GET','POST'])
-# @cross_origin()
-
+@app.route('/predict_route', methods=['GET', 'POST'])
 def predict_route():
     if request.method == 'POST':
-        gender  = request.form['gender']
+        gender = request.form['gender']
         SeniorCitizen = request.form['SeniorCitizen']
         Partner = request.form['Partner']
         Dependents = request.form['Dependents']
@@ -94,14 +102,14 @@ def predict_route():
         MonthlyCharges = float(request.form['MonthlyCharges'])
         TotalCharges = float(request.form['TotalCharges'])
 
+        prediction = predict(gender, SeniorCitizen, Partner, Dependents, tenure, PhoneService, MultipleLines,
+                             InternetService, OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport,
+                             StreamingTV, StreamingMovies, Contract, PaperlessBilling, PaymentMethod,
+                             MonthlyCharges, TotalCharges)
+        prediction_text = "The Customer will Churn" if prediction == 1 else "The Customer will not Churn"
+
+        return render_template('index.html', prediction=prediction_text)
 
 
-
-    prediction = predict(gender,SeniorCitizen,Partner,Dependents,tenure,PhoneService,MultipleLines,InternetService,OnlineSecurity,OnlineBackup,DeviceProtection,TechSupport,StreamingTV,StreamingMovies,Contract,PaperlessBilling,PaymentMethod,MonthlyCharges,TotalCharges)
-    prediction_text = "The Customer will Churn" if prediction == 1 else "The Customer will not Churn"
-
-    return render_template('index.html', prediction=prediction_text)
-
-
-if __name__=='__main__':
+if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
