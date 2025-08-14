@@ -1,0 +1,23 @@
+schema: '2.0'
+stages:
+  train_model:
+    cmd: python src/train_model.py
+    deps:
+    - path: data/processed/
+      hash: md5
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
+    - path: src/train_model.py
+      hash: md5
+      md5: 5508de8af76ac47d61ca1f133be4e467
+      size: 1536
+    outs:
+    - path: models/preprocessor.pkl
+      hash: md5
+      md5: cfcf709abebec0b2491486dacce84d1e
+      size: 2933
+    - path: models/rf_classifier.pkl
+      hash: md5
+      md5: a8f5868894934e60c53917557ccb0b31
+      size: 21623152
