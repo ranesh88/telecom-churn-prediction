@@ -9,7 +9,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 
 # Load raw data
-data = pd.read_csv('Churn_Prediction_Final.csv')
+data = pd.read_csv('data/processed/Churn_Prediction_Final.csv')
 
 # Features and target
 X = data.drop('Churn', axis=1)
