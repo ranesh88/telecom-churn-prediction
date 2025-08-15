@@ -27,8 +27,8 @@ data/raw/
 mlruns/
 
 # ---------------- Models ----------------
-*.pkl
-*.joblib
+#*.pkl
+#*.joblib
 
 # ---------------- OS files ----------------
 .DS_Store
