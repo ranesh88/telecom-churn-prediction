@@ -1,3 +1,40 @@
-/Churn_Prediction_Final.csv
-/rf_classifier.pkl
-/preprocessor.pkl
+# ---------------- Python ----------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*.log
+*.sqlite3
+
+# ---------------- Virtual environment ----------------
+.venv/
+env/
+venv/
+ENV/
+
+# ---------------- Jupyter Notebooks ----------------
+.ipynb_checkpoints/
+
+# ---------------- Data files ----------------
+# Ignore raw data
+data/raw/
+# Keep processed dataset for training, remove/comment the next line if you want to push CSV
+# data/processed/*.csv
+*.dvc
+
+# ---------------- MLflow local runs ----------------
+mlruns/
+
+# ---------------- Models ----------------
+*.pkl
+*.joblib
+
+# ---------------- OS files ----------------
+.DS_Store
+Thumbs.db
+
+# ---------------- IDE/editor settings ----------------
+.idea/
+.vscode/
+
